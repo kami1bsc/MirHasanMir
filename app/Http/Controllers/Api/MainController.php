@@ -206,6 +206,8 @@ class MainController extends Controller
                 ], 200);
             }
 
+            $video->preview_url = IMAGE_URL.$video->preview_url;
+
             return response()->json([
                 'status' => true,
                 'message' => 'Video Details Found',

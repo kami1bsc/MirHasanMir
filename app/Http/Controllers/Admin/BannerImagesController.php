@@ -26,7 +26,7 @@ class BannerImagesController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.banners.create');
     }
 
     /**
@@ -37,7 +37,29 @@ class BannerImagesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+            $banner = new Banner;
+            
+            if($request->has('banner_image'))
+            {
+                if($request->banner_image->getClientOriginalExtension() == 'PNG' ||$request->banner_image->getClientOriginalExtension() == 'png' || $request->banner_image->getClientOriginalExtension() == 'JPG' || $request->banner_image->getClientOriginalExtension() == 'jpg' || $request->banner_image->getClientOriginalExtension() == 'jpeg' || $request->banner_image->getClientOriginalExtension() == 'JPEG')
+                {
+                    $newfilename = md5(mt_rand()) .'.'. $request->banner_image->getClientOriginalExtension();
+                    $request->file('banner_image')->move(public_path("/banner_images"), $newfilename);
+                    $new_path1 = 'banner_images/'.$newfilename;
+                    $banner->banner_image = $new_path1;
+                }else{
+                    return back()->with('error', 'Choose a Valid Image');
+                }                       
+            }
+            
+            $banner->save();
+            
+            return back()->with('message', 'Banner Image Added Successfully');
+        }catch(\Exception $e)
+        {
+            return back()-with('error', 'There is some trouble to proceed your action');
+        }
     }
 
     /**
