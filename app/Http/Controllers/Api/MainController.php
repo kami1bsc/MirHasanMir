@@ -12,6 +12,12 @@ use GeniusTS\HijriDate\Date;
 use GeniusTS\HijriDate\Translations\Arabic;
 use App\Models\Banner;
 use App\Models\MajlisUpdate;
+use App\Models\TopSection;
+use App\Models\MonthKalam;
+use App\Models\Trending;
+use App\Models\NohaySingle;
+use App\Models\ManqabatSingle;
+use App\Models\Month;
 
 class MainController extends Controller
 {
@@ -22,16 +28,60 @@ class MainController extends Controller
             $today_date = $date->format('d F');
             $today_month = $date->format('F');        
 
-            $top_section = Video::orderBy('id', 'desc')->limit(6)->get(['id', 'video_title', 'preview_url']);
-
-            $month_kalam = Video::where('islamic_month', $today_month)->limit(6)->orderBy('id', 'desc')->get(['id', 'video_title', 'preview_url']);
+            $tops = TopSection::pluck('video_id');
             
-            $obj = [
-                'month_name' => $today_month.' Kalam',
-                'month_kalam' => $month_kalam,
-            ];
+            $top_section = Video::whereIn('id', $tops)->orderBy('id', 'desc')->get(['id', 'video_title', 'preview_url']);
+
+            if(!empty($top_section))
+            {
+                foreach($top_section as $top)
+                {
+                    $top->preview_url = IMAGE_URL.$top->preview_url;
+                }
+            }
+            
+            $mon = Month::orderBy('id', 'desc')->first();
+            
+            if(!empty($mon))
+            {
+                if($mon->is_active == 'Active')
+                {
+                    $mons = MonthKalam::pluck('video_id');
+
+                    $month_kalam = Video::whereIn('id', $mons)->orderBy('id', 'desc')->get(['id', 'video_title', 'preview_url']);
+            
+                    if(!empty($month_kalam))
+                    {
+                        foreach($month_kalam as $m)
+                        {
+                            $m->preview_url = IMAGE_URL.$m->preview_url;
+                        }
+                    }else{
+                        $month_kalam = [];
+                    }
+
+                    $obj = [
+                        'month_name' => $mon->month_name.' Kalam',
+                        'month_kalam' => $month_kalam,
+                    ];
+                }else{
+                    $obj = json_decode('{}');
+                }
+            }else{
+                $obj = json_decode('{}');
+            }
 
             $banners = Banner::orderBy('id', 'desc')->get(['id', 'banner_image']);
+
+            if(!empty($banners))
+            {
+                foreach($banners as $banner)
+                {
+                    $banner->banner_image = IMAGE_URL.$banner->banner_image;
+                }
+            }else{
+                $banners = [];
+            }
 
             $latest = Video::orderBy('id', 'desc')->limit(6)->get(['id', 'video_title', 'category_id','preview_url']);
 
@@ -47,14 +97,25 @@ class MainController extends Controller
                 }
             }
 
+            if(!empty($latest))
+            {
+                foreach($latest as $l)
+                {
+                    $l->preview_url = IMAGE_URL.$l->preview_url;
+                }
+            }
+
             //
 
-            $trending = Video::where('islamic_month', $today_month)->limit(6)->orderBy('id', 'asc')->get(['id', 'video_title', 'category_id','preview_url']);
+            $tren = Trending::pluck('video_id');
+
+            $trending = Video::whereIn('id', $tren)->orderBy('id', 'desc')->get(['id', 'video_title', 'category_id','preview_url']);
 
             if(!empty($trending))
             {
                 foreach($trending as $l)
                 {
+                    $l->preview_url = IMAGE_URL.$l->preview_url;
                     if($l->category_id != "" || !empty($l->category_id))
                     {
                         $cat = Category::where('id', $l->category_id)->first('category_name');
@@ -62,15 +123,51 @@ class MainController extends Controller
                     }
                 }
             }
-
-            $nohay_albums = Album::where('album_type', 'Nohay')->orderBy('id', 'desc')->limit(6)->get(['id', 'album_name', 'album_image', 'released_year']);
             
-            $nohay_singles = Video::where('category_id', '3')->orderBy('id', 'desc')->limit(6)->get(['id', 'video_title', 'preview_url']);
-
-            $manqabat_albums = Album::where('album_type', 'Manqabat')->orderBy('id', 'desc')->limit(6)->get(['id', 'album_name', 'album_image', 'released_year']);
+            $nohay_albums = Album::where('album_type', 'Nohay')->orderBy('id', 'desc')->limit(10)->get(['id', 'album_name', 'album_image', 'released_year']);
             
-            $manqabat_singles = Video::where('category_id', '2')->orderBy('id', 'desc')->limit(6)->get(['id', 'video_title', 'preview_url']);
+            if(!empty($nohay_albums))
+            {
+                foreach($nohay_albums as $album)
+                {
+                    $album->album_image = IMAGE_URL.$album->album_image;
+                }
+            }
+            
+            $nohay = NohaySingle::pluck('video_id');
+
+            $nohay_singles = Video::whereIn('id', $nohay)->orderBy('id', 'desc')->limit(10)->get(['id', 'video_title', 'preview_url']);
+            
+            if(!empty($nohay_singles))
+            {
+                foreach($nohay_singles as $single)
+                {
+                    $single->preview_url = IMAGE_URL.$single->preview_url;
+                }
+            }
+
+            $manqabat_albums = Album::where('album_type', 'Manqabat')->orderBy('id', 'desc')->limit(10)->get(['id', 'album_name', 'album_image', 'released_year']);
+            
+            if(!empty($manqabat_albums))
+            {
+                foreach($manqabat_albums as $album)
+                {
+                    $album->album_image = IMAGE_URL.$album->album_image;
+                }
+            }
+
+            $manqabats = ManqabatSingle::pluck('video_id');
+
+            $manqabat_singles = Video::whereIn('id', $manqabats)->orderBy('id', 'desc')->limit(10)->get(['id', 'video_title', 'preview_url']);
         
+            if(!empty($manqabat_singles))
+            {
+                foreach($manqabat_singles as $single)
+                {
+                    $single->preview_url = IMAGE_URL.$single->preview_url;
+                }
+            }
+
             return response()->json([
                 'status' => true,
                 'message' => 'Mir Hasan Mir Videos Found',
@@ -128,6 +225,14 @@ class MainController extends Controller
         try{
             $video = Video::where('album_id', $album_id)->get(['id', 'album_id', 'video_title', 'preview_url']);
 
+            if(!empty($video))
+            {
+                foreach($video as $v)
+                {
+                    $v->preview_url = IMAGE_URL.$v->preview_url;
+                }
+            }
+
             if(empty($video))
             {
                 return response()->json([
@@ -154,6 +259,14 @@ class MainController extends Controller
     {
         try{
             $majlis_updates = MajlisUpdate::orderBy('id', 'desc')->get();
+
+            if(!empty( $majlis_updates))
+            {
+                foreach($majlis_updates as $majlis)
+                {
+                    $majlis->banner_image = IMAGE_URL.$majlis->banner_image;
+                }
+            }
 
             return response()->json([
                 'status' => true,
@@ -203,8 +316,16 @@ class MainController extends Controller
 
             $albums = Album::where('album_type', $cat->category_name)->orderBy('id', 'desc')->get(['id', 'album_name', 'album_image', 'released_year', 'album_type']);
 
+            if(!empty($albums))
+            {
+                foreach($albums as $album)
+                {
+                    $album->album_image = IMAGE_URL.$album->album_image;
+                }
+            }
+
             return response()->json([
-                'status' => false,
+                'status' => true,
                 'message' => $albums->count() > 0 ? 'Albums Found' : 'No Album Found',
                 'data' => $albums->count() > 0 ? $albums : [],
             ], 200);

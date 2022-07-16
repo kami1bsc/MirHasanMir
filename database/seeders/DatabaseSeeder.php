@@ -28,5 +28,10 @@ class DatabaseSeeder extends Seeder
         $this->call(MonthSeeder::class);
         $this->call(BannerSeeder::class);
         $this->call(MajlisUpdateSeeder::class);
+        $this->call(TopSectionSeeder::class);
+        $this->call(MonthKalamSeeder::class);
+        $this->call(TrendingSeeder::class);
+        $this->call(NohaySingleSeeder::class);
+        $this->call(ManqabatSingleSeeder::class);
     }
 }

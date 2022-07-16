@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('phone')->default("");
             $table->string('email')->unique()->default("");
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('address')->default("");
+            $table->string('latitude')->default("");
+            $table->string('longitude')->default("");
             $table->string('password')->default("");
             $table->enum('type', USER_TYPES)->default(1); 
             $table->rememberToken();

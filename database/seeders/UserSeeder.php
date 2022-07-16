@@ -25,6 +25,10 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Kamran',
             'email' => 'kamranabrar90@gmail.com',
+            'phone' => '+923236691890',
+            'address' => 'K1 Valencia Town, Lahore',
+            'latitude' => '31.403236262',
+            'longitude' => '74.25603772',
             'password' => bcrypt('12345678'),
             'type' => USER_TYPES['user']
         ]);
@@ -32,6 +36,10 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Syed Hammad',
             'email' => 'hammad@gmail.com',
+            'phone' => '+923336631391',
+            'address' => 'K1 Valencia Town, Lahore',
+            'latitude' => '31.403236262',
+            'longitude' => '74.25603772',
             'password' => bcrypt('12345678'),
             'type' => USER_TYPES['user']
         ]);

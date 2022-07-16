@@ -19,4 +19,14 @@ class Video extends Model
     // protected $casts = [
     //     'category_id' => 'string',
     // ];
+
+    public function category()
+    {
+        return $this->belongsTo('App\Models\Category', 'category_id', 'id');
+    }
+
+    public function album()
+    {
+        return $this->belongsTo('App\Models\Album', 'album_id', 'id');
+    }
 }

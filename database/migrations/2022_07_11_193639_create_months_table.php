@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('months', function (Blueprint $table) {
             $table->id();
             $table->string('month_name')->default("");
+            $table->string('is_active')->default(1);
             $table->timestamps();
         });
     }

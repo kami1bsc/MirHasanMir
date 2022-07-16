@@ -21,13 +21,14 @@ return new class extends Migration
             $table->foreign('album_id')->references('id')->on('albums')->onDelete('cascade');
             $table->string('video_title')->default("");
             $table->text('video_description')->nullable();
-            $table->text('preview_url')->default("");
-            $table->text('youtube_url')->default("");            
-            $table->text('spotify_url')->default("");
-            $table->text('apple_music_url')->default("");
-            $table->text('amazon_music_url')->default("");
+            $table->text('preview_url')->nullable();
+            $table->text('youtube_url')->nullable();            
+            $table->text('spotify_url')->nullable();
+            $table->text('apple_music_url')->nullable();
+            $table->text('amazon_music_url')->nullable();
             $table->string('islamic_month')->default("");
-            $table->longText('lyrics')->default("");
+            $table->longText('lyrics')->nullable();
+            $table->string('poet_name')->default("");
             $table->timestamps();
         });
     }

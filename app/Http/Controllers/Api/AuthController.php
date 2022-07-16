@@ -11,7 +11,7 @@ class AuthController extends Controller
     //Signup
     public function signup(Request $request)
     {
-        try{
+        // try{
             if(!$request->has('name') && $request->name != "")
             {
                 return response()->json([
@@ -60,6 +60,22 @@ class AuthController extends Controller
             $user->name = $request->name;
             $user->email = $request->email;
             $user->phone = $request->phone;
+
+            if($request->has('address') && $request->address != "")
+            {
+                $user->address = $request->address;
+            }
+
+            if($request->has('latitude') && $request->latitude != "")
+            {
+                $user->latitude = $request->latitude;
+            }
+
+            if($request->has('longitude') && $request->longitude != "")
+            {
+                $user->longitude = $request->longitude;
+            }
+
             $user->save();
 
             return response()->json([
@@ -67,13 +83,13 @@ class AuthController extends Controller
                 'message' => "Glad You've Joined Us",
                 'data' => $user
             ], 200);
-        }catch(\Exception $e)
-        {
-            return response()->json([
-                'status' => false,
-                'message' => 'There is some trouble to proceed your action',
-            ], 200);
-        }
+        // }catch(\Exception $e)
+        // {
+        //     return response()->json([
+        //         'status' => false,
+        //         'message' => 'There is some trouble to proceed your action',
+        //     ], 200);
+        // }
     }
 
     //Login

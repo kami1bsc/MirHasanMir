@@ -16,7 +16,7 @@ class MajlisUpdateSeeder extends Seeder
     public function run()
     {
         MajlisUpdate::create([
-            'banner_image' => 'https://static.vecteezy.com/system/resources/previews/004/572/051/non_2x/majlis-e-aza-calligraphy-free-vector.jpg',
+            'banner_image' => 'majlis_banners/default.jpg',
             'title' => 'Majlis Title',
             'description' => 'Majlis Description',
             'address' => 'Majlis Address',
@@ -24,7 +24,7 @@ class MajlisUpdateSeeder extends Seeder
         ]);
 
         MajlisUpdate::create([
-            'banner_image' => 'https://static.vecteezy.com/system/resources/previews/004/572/051/non_2x/majlis-e-aza-calligraphy-free-vector.jpg',
+            'banner_image' => 'majlis_banners/default.jpg',
             'title' => 'Majlis Title',
             'description' => 'Majlis Description',
             'address' => 'Majlis Address',
@@ -32,7 +32,7 @@ class MajlisUpdateSeeder extends Seeder
         ]);
 
         MajlisUpdate::create([
-            'banner_image' => 'https://static.vecteezy.com/system/resources/previews/004/572/051/non_2x/majlis-e-aza-calligraphy-free-vector.jpg',
+            'banner_image' => 'majlis_banners/default.jpg',
             'title' => 'Majlis Title',
             'description' => 'Majlis Description',
             'address' => 'Majlis Address',
@@ -40,7 +40,7 @@ class MajlisUpdateSeeder extends Seeder
         ]);
 
         MajlisUpdate::create([
-            'banner_image' => 'https://static.vecteezy.com/system/resources/previews/004/572/051/non_2x/majlis-e-aza-calligraphy-free-vector.jpg',
+            'banner_image' => 'majlis_banners/default.jpg',
             'title' => 'Majlis Title',
             'description' => 'Majlis Description',
             'address' => 'Majlis Address',
@@ -48,7 +48,7 @@ class MajlisUpdateSeeder extends Seeder
         ]);
 
         MajlisUpdate::create([
-            'banner_image' => 'https://static.vecteezy.com/system/resources/previews/004/572/051/non_2x/majlis-e-aza-calligraphy-free-vector.jpg',
+            'banner_image' => 'majlis_banners/default.jpg',
             'title' => 'Majlis Title',
             'description' => 'Majlis Description',
             'address' => 'Majlis Address',
@@ -56,7 +56,7 @@ class MajlisUpdateSeeder extends Seeder
         ]);
 
         MajlisUpdate::create([
-            'banner_image' => 'https://static.vecteezy.com/system/resources/previews/004/572/051/non_2x/majlis-e-aza-calligraphy-free-vector.jpg',
+            'banner_image' => 'majlis_banners/default.jpg',
             'title' => 'Majlis Title',
             'description' => 'Majlis Description',
             'address' => 'Majlis Address',
@@ -64,7 +64,7 @@ class MajlisUpdateSeeder extends Seeder
         ]);
 
         MajlisUpdate::create([
-            'banner_image' => 'https://static.vecteezy.com/system/resources/previews/004/572/051/non_2x/majlis-e-aza-calligraphy-free-vector.jpg',
+            'banner_image' => 'majlis_banners/default.jpg',
             'title' => 'Majlis Title',
             'description' => 'Majlis Description',
             'address' => 'Majlis Address',
@@ -72,7 +72,7 @@ class MajlisUpdateSeeder extends Seeder
         ]);
 
         MajlisUpdate::create([
-            'banner_image' => 'https://static.vecteezy.com/system/resources/previews/004/572/051/non_2x/majlis-e-aza-calligraphy-free-vector.jpg',
+            'banner_image' => 'majlis_banners/default.jpg',
             'title' => 'Majlis Title',
             'description' => 'Majlis Description',
             'address' => 'Majlis Address',
@@ -80,7 +80,7 @@ class MajlisUpdateSeeder extends Seeder
         ]);
 
         MajlisUpdate::create([
-            'banner_image' => 'https://static.vecteezy.com/system/resources/previews/004/572/051/non_2x/majlis-e-aza-calligraphy-free-vector.jpg',
+            'banner_image' => 'majlis_banners/default.jpg',
             'title' => 'Majlis Title',
             'description' => 'Majlis Description',
             'address' => 'Majlis Address',
@@ -88,7 +88,7 @@ class MajlisUpdateSeeder extends Seeder
         ]);
 
         MajlisUpdate::create([
-            'banner_image' => 'https://static.vecteezy.com/system/resources/previews/004/572/051/non_2x/majlis-e-aza-calligraphy-free-vector.jpg',
+            'banner_image' => 'majlis_banners/default.jpg',
             'title' => 'Majlis Title',
             'description' => 'Majlis Description',
             'address' => 'Majlis Address',
@@ -96,7 +96,7 @@ class MajlisUpdateSeeder extends Seeder
         ]);
 
         MajlisUpdate::create([
-            'banner_image' => 'https://static.vecteezy.com/system/resources/previews/004/572/051/non_2x/majlis-e-aza-calligraphy-free-vector.jpg',
+            'banner_image' => 'majlis_banners/default.jpg',
             'title' => 'Majlis Title',
             'description' => 'Majlis Description',
             'address' => 'Majlis Address',
@@ -104,7 +104,7 @@ class MajlisUpdateSeeder extends Seeder
         ]);
 
         MajlisUpdate::create([
-            'banner_image' => 'https://static.vecteezy.com/system/resources/previews/004/572/051/non_2x/majlis-e-aza-calligraphy-free-vector.jpg',
+            'banner_image' => 'majlis_banners/default.jpg',
             'title' => 'Majlis Title',
             'description' => 'Majlis Description',
             'address' => 'Majlis Address',

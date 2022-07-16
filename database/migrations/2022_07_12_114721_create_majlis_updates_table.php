@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('majlis_updates', function (Blueprint $table) {
             $table->id();
-            $table->text('banner_image')->default("");
-            $table->text('title')->default("");
-            $table->text('description')->default("");
-            $table->text('address')->default("");
+            $table->text('banner_image')->nullable();
+            $table->text('title')->nullable();
+            $table->text('description')->nullable();
+            $table->text('address')->nullable();
             $table->string('date_time')->default("");
             $table->timestamps();
         });
