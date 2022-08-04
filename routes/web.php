@@ -47,6 +47,7 @@ Route::group([ 'prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', '
     Route::resource('trending', App\Http\Controllers\Admin\TrendingController::class);
     Route::resource('nohay-singles', App\Http\Controllers\Admin\NohaySingleController::class); 
     Route::resource('manqabat-singles', App\Http\Controllers\Admin\ManqabatSingleController::class); 
+    Route::post('edit-settings', [App\Http\Controllers\Admin\AdminNavigationController::class, 'edit_settings'])->name('edit_settings');
 });
 
 Route::group([ 'prefix' => 'user', 'as' => 'user.', 'middleware' => ['auth', 'CheckUserRole']], function() {

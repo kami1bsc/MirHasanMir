@@ -33,5 +33,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TrendingSeeder::class);
         $this->call(NohaySingleSeeder::class);
         $this->call(ManqabatSingleSeeder::class);
+        $this->call(SettingSeeder::class);
     }
 }

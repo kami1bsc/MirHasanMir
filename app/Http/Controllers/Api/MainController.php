@@ -18,15 +18,34 @@ use App\Models\Trending;
 use App\Models\NohaySingle;
 use App\Models\ManqabatSingle;
 use App\Models\Month;
+use App\Models\Setting;
 
 class MainController extends Controller
 {
     public function home(Request $request)
     {
-        try{
+        // try{
             $date = \GeniusTS\HijriDate\Hijri::convertToHijri($request->date_time);
             $today_date = $date->format('d F');
             $today_month = $date->format('F');        
+
+            $top_string = Setting::where('settings_type', 'top_string')->first();
+            
+            if(!empty($top_string))
+            {
+                $top_string_value = $top_string->settings_value;
+            }else{
+                $top_string_value = "";
+            }
+            
+            $mood = Setting::where('settings_type', 'mood')->first();
+            
+            if(!empty($mood))
+            {
+                $mood_value = $mood->settings_value;
+            }else{
+                $mood_value = "Neutral";
+            }
 
             $tops = TopSection::pluck('video_id');
             
@@ -83,7 +102,7 @@ class MainController extends Controller
                 $banners = [];
             }
 
-            $latest = Video::orderBy('id', 'desc')->limit(6)->get(['id', 'video_title', 'category_id','preview_url']);
+            $latest = Video::orderBy('id', 'desc')->limit(25)->get(['id', 'video_title', 'category_id','preview_url']);
 
             if(!empty($latest))
             {
@@ -124,7 +143,7 @@ class MainController extends Controller
                 }
             }
             
-            $nohay_albums = Album::where('album_type', 'Nohay')->orderBy('id', 'desc')->limit(10)->get(['id', 'album_name', 'album_image', 'released_year']);
+            $nohay_albums = Album::where('album_type', 'Nohay')->orderBy('released_year', 'desc')->limit(25)->get(['id', 'album_name', 'album_image', 'released_year']);
             
             if(!empty($nohay_albums))
             {
@@ -136,7 +155,7 @@ class MainController extends Controller
             
             $nohay = NohaySingle::pluck('video_id');
 
-            $nohay_singles = Video::whereIn('id', $nohay)->orderBy('id', 'desc')->limit(10)->get(['id', 'video_title', 'preview_url']);
+            $nohay_singles = Video::whereIn('id', $nohay)->orderBy('id', 'desc')->limit(30)->get(['id', 'video_title', 'preview_url']);
             
             if(!empty($nohay_singles))
             {
@@ -146,7 +165,7 @@ class MainController extends Controller
                 }
             }
 
-            $manqabat_albums = Album::where('album_type', 'Manqabat')->orderBy('id', 'desc')->limit(10)->get(['id', 'album_name', 'album_image', 'released_year']);
+            $manqabat_albums = Album::where('album_type', 'Manqabat')->orderBy('released_year', 'desc')->limit(25)->get(['id', 'album_name', 'album_image', 'released_year']);
             
             if(!empty($manqabat_albums))
             {
@@ -158,7 +177,7 @@ class MainController extends Controller
 
             $manqabats = ManqabatSingle::pluck('video_id');
 
-            $manqabat_singles = Video::whereIn('id', $manqabats)->orderBy('id', 'desc')->limit(10)->get(['id', 'video_title', 'preview_url']);
+            $manqabat_singles = Video::whereIn('id', $manqabats)->orderBy('id', 'desc')->limit(30)->get(['id', 'video_title', 'preview_url']);
         
             if(!empty($manqabat_singles))
             {
@@ -172,6 +191,8 @@ class MainController extends Controller
                 'status' => true,
                 'message' => 'Mir Hasan Mir Videos Found',
                 'data' => [
+                    'top_string' => $top_string_value,
+                    'mood' => $mood_value,
                     'today_date' => $today_date,
                     'top_section' => $top_section,
                     'month_kalam' => $obj,
@@ -184,13 +205,13 @@ class MainController extends Controller
                     'manqabat_singles' => $manqabat_singles,
                 ], 
             ], 200);
-        }catch(\Exception $e)
-        {
-            return response()->json([
-                'status' => false,
-                'message' => 'There is some trouble to proceed your action',
-            ], 200);
-        }        
+        // }catch(\Exception $e)
+        // {
+        //     return response()->json([
+        //         'status' => false,
+        //         'message' => 'There is some trouble to proceed your action',
+        //     ], 200);
+        // }        
     }
 
     public function video_details($video_id)

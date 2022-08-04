@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
     //Signup
     public function signup(Request $request)
     {
-        // try{
+        try{
             if(!$request->has('name') && $request->name != "")
             {
                 return response()->json([
@@ -55,11 +56,20 @@ class AuthController extends Controller
                     'message' => 'Phone has already been Taken',
                 ], 200);
             }
+            
+            if(!$request->has('password') && $request->password != "")
+            {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Password is Required',
+                ], 200);
+            }
 
             $user = new User;
             $user->name = $request->name;
             $user->email = $request->email;
             $user->phone = $request->phone;
+            $user->password = bcrypt($request->password);
 
             if($request->has('address') && $request->address != "")
             {
@@ -83,13 +93,13 @@ class AuthController extends Controller
                 'message' => "Glad You've Joined Us",
                 'data' => $user
             ], 200);
-        // }catch(\Exception $e)
-        // {
-        //     return response()->json([
-        //         'status' => false,
-        //         'message' => 'There is some trouble to proceed your action',
-        //     ], 200);
-        // }
+        }catch(\Exception $e)
+        {
+            return response()->json([
+                'status' => false,
+                'message' => 'There is some trouble to proceed your action',
+            ], 200);
+        }
     }
 
     //Login
@@ -102,15 +112,32 @@ class AuthController extends Controller
 
             if(!empty($user))
             {
-                return response()->json([
-                    'status' => true,
-                    'message' => "Glad You've Joined Us",
-                    'data' => $user
-                ], 200);
+                if(!$request->has('password') || $request->password == "")
+                {
+                    return response()->json([
+                        'status' => false,
+                        'message' => "Password is Required",
+                    ], 200);
+                }
+                
+                if(Hash::check($request->password, $user->password))
+                {
+                     return response()->json([
+                        'status' => true,
+                        'message' => "Glad You've Joined Us",
+                        'data' => $user
+                    ], 200); 
+                }else{
+                    return response()->json([
+                        'status' => false,
+                        'message' => "Invalid Credentials",
+                    ], 200);
+                }
+               
             }else{
                 return response()->json([
                     'status' => false,
-                    'message' => "Invalid Email or Phone",
+                    'message' => "Invalid Credentials",
                 ], 200);
             }
             

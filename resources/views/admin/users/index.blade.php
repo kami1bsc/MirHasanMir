@@ -31,7 +31,8 @@
                                     <th>ID</th>                        
                                     <th>Name</th>                                        
                                     <th>Email</th>                                      
-                                    <th>Phone</th>                                                                                  
+                                    <th>Phone</th> 
+                                    <th>Address</th> 
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -40,7 +41,8 @@
                                     <th>ID</th>                        
                                     <th>Name</th>                                        
                                     <th>Email</th>                                      
-                                    <th>Phone</th>                                                                                  
+                                    <th>Phone</th> 
+                                    <th>Address</th> 
                                     <th>Action</th>
                                 </tr>
                             </tfoot>
@@ -50,7 +52,8 @@
                                         <td>{{ $user->id }}</td>
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
-                                        <td>{{ $user->phone }}</td>                                
+                                        <td>{{ $user->phone }}</td> 
+                                        <td>{{ $user->address }}</td> 
                                         <td>                                            
                                             <div class = "col-md-6 col-6">
                                                 <form action="{{ route('admin.users.destroy', $user->id) }}" method = "POST">

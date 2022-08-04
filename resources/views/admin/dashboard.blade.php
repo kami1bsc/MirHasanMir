@@ -277,25 +277,62 @@
     </div> -->
 </div>
 
- <div class="mt-3">
-        <div class="row">
-            <div class="col-md-12 text-left">
-                <h5>Recent Registered Users</h5>
-                @if(session()->has('message'))
-                    <div class="alert alert-success text-center">
-                        {{ session()->get('message') }}
-                    </div>
-                @endif
-                @if(session()->has('error'))
-                    <div class="alert alert-danger text-center">
-                        {{ session()->get('error') }}
-                    </div>
-                @endif
+<div class="row">
+    <div class="col-md-12 text-left">
+        @if(session()->has('message'))
+            <div class="alert alert-success text-center">
+                {{ session()->get('message') }}
             </div>
-        </div> 
+        @endif
+        @if(session()->has('error'))
+            <div class="alert alert-danger text-center">
+                {{ session()->get('error') }}
+            </div>
+        @endif
+    </div>
+</div> 
+
+<div class = "row">
+    <!--<div class = "col-md-2"></div>-->
+    <div class = "col-md-12">
+        <h5>Edit Settings String</h5>
+        <form action = "{{ route('admin.edit_settings') }}" method = "POST">
+            {{ csrf_field() }}
+            <div class = "row">
+                <div class = "col-md-5">
+                    <div class = "form-group">
+                        <label>Setting</label>
+                        <select name = "settings_id" class = "form-control">
+                            @foreach($settings as $setting)
+                                <option value = "{{ $setting->id }}">{{ $setting->settings_type }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class = "col-md-5">
+                    <div class = "form-group">
+                        <label>Value</label>
+                        <input type = "text" name = "settings_value" class = "form-control" placeholder = "Value">
+                    </div>
+                </div>
+                <div class = "col-md-2">
+                    <div class = "form-group">
+                        <label></label>
+                        
+                        <input type = "submit" name = "submit" class = "btn btn-sm btn-primary form-control mt-2" value = "Submit">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--<div class = "col-md-2"></div>-->
+</div>
+
+ <div class="mt-3">
         <div class="row">
             <div class="col-md-12">
                 <!-- -->
+                <h5>Recent Registered Users</h5>
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Users Data</h6>
